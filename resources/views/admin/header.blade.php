@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-      <ul class="navbar-nav mr-lg-4 w-100">
+      {{--  <ul class="navbar-nav mr-lg-4 w-100">
         <li class="nav-item nav-search d-none d-lg-block w-100">
           <div class="input-group">
             <div class="input-group-prepend">
@@ -20,20 +20,20 @@
             <input type="text" class="form-control" placeholder="Search now" aria-label="search" aria-describedby="search">
           </div>
         </li>
-      </ul>
+      </ul>  --}}
       <ul class="navbar-nav navbar-nav-right">
 
 
         <li class="nav-item nav-profile dropdown">
           <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
-            <img src="images/faces/face5.jpg" alt="profile"/>
-            <span class="nav-profile-name"></span>
+            {{--  <img src="images/faces/face5.jpg" alt="profile"/>  --}}
+            <span class="nav-profile-name">{{ Auth::user()->name }}</span>
           </a>
           <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-            <a class="dropdown-item">
+            {{--  <a class="dropdown-item">
               <i class="mdi mdi-settings text-primary"></i>
               Settings
-            </a>
+            </a>  --}}
             <a href="{{ url('/logout') }}" class="dropdown-item">
               <i class="mdi mdi-logout text-primary"></i>
               Logout

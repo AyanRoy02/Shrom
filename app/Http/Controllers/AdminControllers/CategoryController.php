@@ -11,13 +11,15 @@ class CategoryController extends Controller
 {
     public function index()
     {
+        $user= Auth::user();
         $categories = Category::all();
-        return view('admin.category.index', compact('categories'));
+        return view('admin.category.index', compact('categories', 'user'));
     }
 
     public function create()
     {
-        return view('admin.category.create');
+        $user= Auth::user();
+        return view('admin.category.create', compact('user'));
     }
 
     public function store(Request $request){
@@ -31,8 +33,9 @@ class CategoryController extends Controller
         return redirect()->back();
     }
     public function edit($id){
+        $user= Auth::user();
         $category = Category::find($id);
-        return view('admin.category.edit',compact('category'));
+        return view('admin.category.edit',compact('category', 'user'));
     }
 
     public function update(Request $request, $id){

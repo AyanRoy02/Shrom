@@ -19,8 +19,6 @@
                         <tbody>
                         @foreach ($users as $user)
                             <tr>
-
-
                                 <td class="py-1">
                                     {{ $user->id }}
                                 </td>

@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('sliders', function (Blueprint $table) {
             $table->id();
-            $table->string('category');
-            $table->foreignId('category_created_by');
-            $table->foreign('category_created_by')->on('users')->references('id')->onDelete('cascade');
+            $table->string('title');
+            $table->string('description');
+            $table->string('sec_title'); 
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('sliders');
     }
 };

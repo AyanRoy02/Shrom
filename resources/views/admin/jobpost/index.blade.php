@@ -12,44 +12,62 @@
                             <tr>
 
                                 <th style="width: 5%;">ID</th>
+                                <th style="width: 20%;">Name</th>
                                 <th style="width: 20%;"> Post title</th>
                                 <th style="width: 50%;"> Description</th>
                                 <th style="width: 50%;"> Category</th>
+                                <th style="width: 50%;"> Designation</th>
                                 <th style="width: 50%;"> Profile Image</th>
-                                <th style="width: 50%;"> Url</th>
+                                <th style="width: 50%;"> Education</th>
+                                <th style="width: 50%;"> Duration</th>
                                 <th style="width: 50%;"> Price</th>
                                 <th style="width: 50%;"> Discount Price</th>
+                                <th style="width: 50%;"> Status</th>
                                 <th style="width: 25%;">Action</th>
 
                             </tr>
 
                         </thead>
                         <tbody>
-                            @foreach ($jobPost as $key => $post)
+                            @foreach ($jpost as $key => $post)
                                 <tr>
                                     <td class="py-1">{{ $key + 1 }}
+
+                                    </td>
+                                    <td class="py-1">{{ $post->name }}
 
                                     </td>
                                     <td class="py-1">{{ $post->title }}
 
                                     </td>
-                                    <td class="py-1">{{ $post->description }}
+                                    <td class="py-1">{!! $post->description !!}
 
                                     </td>
                                     <td class="py-1">{{ $post->category }}
+                                    </td>
+                                    <td class="py-1">{{ $post->designation }}
 
                                     </td>
+
                                     <td class="py-1">
                                         <img width="50px" height="40px"
                                             src="{{ asset('images/jobpost' . '/' . $post->image) }}">
                                     </td>
-                                    <td class="py-1">{{ $post->url }}</td>
+                                    <td class="py-1">{{ $post->education }}</td>
+                                    <td class="py-1">{{ $post->duration }}</td>
 
                                     <td class="py-1">{{ $post->price }}
 
                                     </td>
-                                    <td class="py-1">{{ $post->discount_price }}
+                                    <td class="py-1">{{ $post->discount_price ?? '---' }}
 
+                                    </td>
+                                    <td>
+                                        @if ($post->status == 1)
+                                            <strong class="btn btn-success">Active</strong>
+                                        @else
+                                            <strong class="btn btn-danger">InActive</strong>
+                                        @endif
                                     </td>
                                     <td>
                                         <div class="d-flex">

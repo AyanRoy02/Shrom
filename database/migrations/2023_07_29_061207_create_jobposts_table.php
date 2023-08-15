@@ -15,14 +15,21 @@ return new class extends Migration
     {
         Schema::create('jobposts', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('phone');
             $table->string('title');
             $table->string('description');
             $table->string('category');
             $table->string('image');
             $table->string('url');
-           
+            $table->string('education');
             $table->string('price');
             $table->string('discount_price');
+            $table->string('status');
+            $table->string('designation');
+            $table->string('duration');
+            $table->string('qualification');
+            $table->string('work_experience');
             $table->foreignId('post_created_by');
             $table->foreign('post_created_by')->on('users')->references('id')->onDelete('cascade');
             $table->timestamps();

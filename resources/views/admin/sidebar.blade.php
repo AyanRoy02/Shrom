@@ -1,7 +1,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="{{ url('/dashboard') }}">
                 <i class="mdi mdi-home menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
@@ -35,6 +35,29 @@
             </div>
         </li>
 
+        @can('subscribers')
+        <li class="nav-item" href="#subscribers">
+            <a class="nav-link" id="subscribers" href="{{ url('/subscribers') }}">
+                <i class="mdi mdi-file-document-box-outline menu-icon"></i>
+                <span class="menu-title">Subscribers</span>
+            </a>
+        </li>
+        @endcan
+        @can('all-pages')
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#pages" aria-expanded="false" aria-controls="jobpost">
+                <i class="mdi mdi-circle-outline menu-icon"></i>
+                <span class="menu-title">Pages</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="pages">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{ url('/all-page') }}">All Pages</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ url('/create-page') }}">Create Pages</a></li>
+                </ul>
+            </div>
+        </li>
+        @endcan
         @can('all-workers')
         <li class="nav-item" href="#workers">
             <a class="nav-link" id="workers" href="{{ url('/workers') }}">
@@ -52,5 +75,30 @@
             </a>
         </li>
         @endcan
+
+        {{--  @can('slider')  --}}
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#slider" aria-expanded="false" aria-controls="jobpost">
+                <i class="mdi mdi-circle-outline menu-icon"></i>
+                <span class="menu-title">Slider</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="slider">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{ url('/slider') }}">All Slider</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ url('/slider/create') }}">Create Slider</a></li>
+                </ul>
+            </div>
+        </li>
+        {{--  @endcan  --}}
+
+        {{--  @can('website-setup')  --}}
+        <li class="nav-item" href="#users">
+            <a class="nav-link" id="users" href="{{ url('/webite_setup') }}">
+                <i class="mdi mdi-file-document-box-outline menu-icon"></i>
+                <span class="menu-title">Webite Setup</span>
+            </a>
+        </li>
+        {{--  @endcan  --}}
     </ul>
   </nav>

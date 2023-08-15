@@ -25,9 +25,18 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'view-jobpost']);
         Permission::create(['name' => 'edit-jobpost']);
         Permission::create(['name' => 'delete-jobpost']);
+        Permission::create(['name' => 'all-pages']);
+        Permission::create(['name' => 'create-pages']);
+        Permission::create(['name' => 'view-pages']);
+        Permission::create(['name' => 'edit-pages']);
+        Permission::create(['name' => 'delete-pages']);
 
         Permission::create(['name' => 'all-users']);
         Permission::create(['name' => 'all-workers']);
+        Permission::create(['name' => 'subscribers']);
+        Permission::create(['name' => 'website-setup']);
+        Permission::create(['name' => 'slider']);
+
 
         $workerRole = Role::create(['name' => 'Worker']);
         $adminRole = Role::create(['name' => 'Admin']);
@@ -43,6 +52,14 @@ class RoleAndPermissionSeeder extends Seeder
             'delete-jobpost',
             'all-users',
             'all-workers',
+            'subscribers',
+            'create-pages',
+            'view-pages',
+            'edit-pages',
+            'delete-pages',
+            'all-pages',
+            'website-setup',
+            'slider',
         ]);
 
         $workerRole->givePermissionTo([
@@ -54,7 +71,7 @@ class RoleAndPermissionSeeder extends Seeder
             'view-jobpost',
             'edit-jobpost',
             'delete-jobpost',
-           
+
         ]);
     }
 }

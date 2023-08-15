@@ -11,4 +11,8 @@ class JobPost extends Model
     use HasFactory;
     protected $table= 'jobposts';
     protected $guarded = [];
+
+    public function createby(){
+        return $this->belongsTo(User::class,'post_created_by','id');
+    }
 }

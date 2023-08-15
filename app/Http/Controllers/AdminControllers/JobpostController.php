@@ -8,7 +8,6 @@ use App\Models\JobPost;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\AppTrait\FileTrait;
 use App\Facades\AppFacade;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -17,13 +16,24 @@ class JobpostController extends Controller
 {
     public function index()
     {
-        $jobPost = JobPost::all();
-        return view('admin.jobpost.index', compact('jobPost'));
+        $user= Auth::user();
+        if($user->role=='admin'){
+            $jpost = JobPost::all();
+        }
+        else{
+            $user_id = Auth::user()->id;
+            $jpost = JobPost::where('post_created_by',$user_id)->get();
+        }
+
+        // $user= Auth::user();
+        // $jobPost = JobPost::all();
+        return view('admin.jobpost.index', compact('jpost', 'user'));
     }
     public function create()
     {
+        $user= Auth::user();
         $category = Category::all();
-        return view('admin.jobpost.create', compact('category'));
+        return view('admin.jobpost.create', compact('category','user'));
     }
     public function store(Request $request)
     {
@@ -61,14 +71,29 @@ class JobpostController extends Controller
         //     ]);
         $post = new JobPost;
         $post->title = $request->title;
-
+        $post->name = $request->name;
+        $post->phone = $request->phone;
         $post->description = $request->description;
         $post->category = $request->category;
         $post->image = $request->image;
         $post->url = $request->url;
         $post->price = $request->price;
         $post->discount_price = $request->discount_price;
+        $post->status = $request->status;
+        $post->designation = $request->designation;
+        $post->duration = $request->duration;
+        $post->work_experience = $request->work_experience;
+        $post->qualification = $request->qualification;
+        $post->education = $request->education;
         $post->post_created_by = Auth::user()->id;
+        // dd($post->discount_price);
+        if(isset($post->discount_price)){
+            $post->total_price = $request->discount_price;
+
+        }
+        else{
+            $post->total_price = $request->price;
+        }
 
         if ($image = $request->file('image')) {
             $destinationPath = 'images/jobpost/';
@@ -83,10 +108,12 @@ class JobpostController extends Controller
     }
 
     public function edit($id){
+        $user= Auth::user();
         $categories = Category::all();
+
         $jobPost = JobPost::find($id);
 
-        return view('admin.jobpost.edit',compact('categories','jobPost'));
+        return view('admin.jobpost.edit',compact('categories','jobPost', 'user'));
     }
     public function show($id){
 
@@ -135,14 +162,27 @@ class JobpostController extends Controller
 
         $post = JobPost::find($id);
         $post->title = $request->title;
-
+        $post->name = $request->name;
+        $post->phone = $request->phone;
         $post->description = $request->description;
         $post->category = $request->category;
         $post->image = $request->image;
         $post->url = $request->url;
         $post->price = $request->price;
         $post->discount_price = $request->discount_price;
+        $post->status = $request->status;
+        $post->designation = $request->designation;
+        $post->duration = $request->duration;
+        $post->qualification = $request->qualification;
+        $post->work_experience = $request->work_experience;
+        $post->education = $request->education;
         $post->post_created_by = Auth::user()->id;
+        if(isset($post->discount_price)){
+            $post->total_price = $request->discount_price;
+}
+        else{
+            $post->total_price = $request->price;
+        }
 
         if ($image = $request->file('image')) {
             $destinationPath = 'images/jobpost/';
@@ -168,93 +208,6 @@ class JobpostController extends Controller
         $jobPost->delete();
 
         return redirect()->back();
-    }
-
-
-    public function imageUpload($request, string $fileName, string $path, string $prefix = 'img_', string $uniqueIdentifier = '', $product = null)
-    {
-
-
-        $file = $request->file($fileName);
-        $extension = $file->getClientOriginalExtension();
-        $fileName = $this->generateRandomString(25);
-        $name = $prefix . $uniqueIdentifier . '_' . time() . '-' . $fileName . '.' . $extension;
-        $mainPath = 'file/images/media/' . $path . '/';
-        $uploadDir = self::$base_dir . $mainPath;
-
-
-        if (!File::exists($uploadDir)) {
-            File::makeDirectory(storage_path($uploadDir), 0777, true, true);
-        }
-
-        $destinationPath = storage_path($uploadDir);
-        $imageObject = ImageIntervention::make($file);
-        $imageObject->save($destinationPath . $name);
-        $size = getimagesize($file);
-        list($width, $height, $type, $attr) = $size;
-        $uploadedString = 'storage/' . $mainPath . $name;
-        $AllImagesSettingData = $this->AllimagesHeightWidth();
-        $categoryImage = [];
-        if ($product==true){
-            switch (true) {
-
-                case ($width >= $AllImagesSettingData[5] || $height >= $AllImagesSettingData[4]):
-                    $categoryImage[] = $this->storeThumbnial($destinationPath, $name, $mainPath, $file);
-                    $categoryImage[] = $this->storeMedium($destinationPath, $name, $mainPath, $file);
-                    $categoryImage[] = $this->storeLarge($destinationPath, $name, $mainPath, $file);
-                    break;
-                case ($width >= $AllImagesSettingData[3] || $height >= $AllImagesSettingData[2]):
-                    $categoryImage[] = $this->storeThumbnial($destinationPath, $name, $mainPath, $file);
-                    $categoryImage[] = $this->storeMedium($destinationPath, $name, $mainPath, $file);
-
-                    //                $storeLargeImage = $Images->Largerecord($filename,$Path,$width,$height);
-                    break;
-                case ($width >= $AllImagesSettingData[0] || $height >= $AllImagesSettingData[1]):
-                    $categoryImage[] = $this->storeThumbnial($destinationPath, $name, $mainPath, $file);
-                    $categoryImage[] = $this->storeLarge($destinationPath, $name, $mainPath, $file);
-                    $categoryImage[] = $this->storeMedium($destinationPath, $name, $mainPath, $file);
-                    break;
-                //            default:
-                //                $tuhmbnail = $this->storeThumbnial($Path,$filename,$directory,$filename);
-                //                $storeLargeImage = $Images->Largerecord($filename,$Path,$width,$height);
-                //                $storeMediumImage = $Images->Mediumrecord($filename,$Path,$width,$height);
-            }
-
-            $id=DB::table('images')->insertGetId([
-                'image_type' => '1',
-                'height' => $height,
-                'width' => $width,
-                'path' => $uploadedString,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]);
-            $categoryImage[]=['id'=>$id,'path'=>$uploadedString,'type'=>'ACTUAL'];
-            return $categoryImage;
-        }
-        DB::beginTransaction();
-
-        try {
-
-            $imageId=DB::table('images')->insertGetId([
-                'image_type' => '1',
-                'height' => $height,
-                'width' => $width,
-                'path' => $uploadedString,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]);
-
-
-            DB::commit();
-
-
-            return $imageId;
-
-        } catch (Exception $e) {
-
-            DB::rollback();
-            return null;
-        }
     }
 
 }

@@ -3,15 +3,25 @@
 namespace App\Http\Controllers\AdminControllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Subscribe;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Session;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+use DB;
+
 
 class DashboardController extends Controller
 {
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $user= Auth::user();
+        $totalcategory = DB::table('categories')->count();
+        $totaljobPost = DB::table('jobposts')->count();
+        $totalusers = DB::table('users')->where('role','=','client')->count();
+        $totalubscribers = DB::table('subscribes')->count();
+
+        return view('admin.dashboard', compact('user','totalcategory','totaljobPost','totalusers','totalubscribers'));
     }
 
     public function logout()
@@ -45,7 +55,7 @@ class DashboardController extends Controller
     }
     public function users()
     {
-        $users = User::where('role', '=', 'user')->get();
+        $users = User::where('role', '=', 'client')->get();
         return view('admin.users.index', compact('users'));
     }
     public function editusers($id){
@@ -62,6 +72,17 @@ class DashboardController extends Controller
     public function destroyusers($id){
         $users = User::find($id);
         $users->delete();
+
+        return redirect()->back();
+    }
+    public function subscribers(){
+        $user= Auth::user();
+        $subscribers = DB::table('subscribes')->get();
+        return view('admin.subscribers',compact('subscribers', 'user'));
+    }
+    public function destroysubscribers($id){
+        $subscribers = Subscribe::find($id);
+        $subscribers->delete();
 
         return redirect()->back();
     }

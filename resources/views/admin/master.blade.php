@@ -17,6 +17,8 @@
   <link rel="stylesheet" href="{{asset('admin/css/style.css')}}">
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <!-- endinject -->
+  //decription
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 </head>
 <body>
   <div class="container-scroller">
@@ -63,6 +65,36 @@
 
   <script src="{{asset('admin/js/jquery.cookie.js" type="text/javascript')}}"></script>
   <script src="../../js/file-upload.js')}}"></script>
+  //desription
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        $('#editor').summernote({
+            placeholder: '',
+            tabsize: 2,
+            height: 100
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        $('#editor1').summernote({
+            placeholder: '',
+            tabsize: 2,
+            height: 100
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        $('#editor2').summernote({
+            placeholder: '',
+            tabsize: 2,
+            height: 100
+        });
+    });
+</script>
+
 </body>
 
 </html>

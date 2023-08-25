@@ -51,7 +51,7 @@
                                             {{ $post->designation }}
                                         </li>
                                         <li>
-                                           
+
                                             @if ($post->discount_price)
                                                                 <p class="product-price" name="price"><b>
                                                                         &#2547;{{ $post->discount_price }}</b>
@@ -76,7 +76,7 @@
                             <div class="col-md-3">
                                 <div class="theme-btn text-end">
                                     <a href="{{ url('/job-details/' . $post->id) }}" class="default-btn">
-                                        Browse Job
+                                        Browse
                                     </a>
                                 </div>
                             </div>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\AdminControllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\OrderDetails;
 use App\Models\Subscribe;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -85,5 +87,39 @@ class DashboardController extends Controller
         $subscribers->delete();
 
         return redirect()->back();
+    }
+    public function orders(){
+        //  $orders= Order::with(['orderdetails.jobPost','orderdetails.user'])->get();
+       $orders = OrderDetails::with(['jobPost', 'user', 'order'])->get();
+//         dd($orders->orderdetails);
+        return view('admin.order.index',compact('orders'));
+    }
+
+    public function sync($id)
+    {
+        $order = Order::find($id);
+        $order-> status ='Synced';
+        $order->save();
+
+        return redirect()->back();
+    }
+
+    public function update($id)
+    {
+
+        $order = Order::find($id);
+        $order-> status  = 'Delivered';
+        $order->save();
+
+        return redirect()->back();
+    }
+    public function cancel($id)
+    {
+        $order = Order::find($id);
+        $order-> status  = 'Cancel';
+        $order->save();
+
+        return redirect()->back();
+
     }
 }

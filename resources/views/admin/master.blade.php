@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="{{asset('admin/css/style.css')}}">
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
   <!-- endinject -->
-  //decription
+  
   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 </head>
 <body>
@@ -94,7 +94,35 @@
         });
     });
 </script>
-
+<script async src='https://d2mpatx37cqexb.cloudfront.net/delightchat-whatsapp-widget/embeds/embed.min.js'></script>
+        <script>
+          var wa_btnSetting = {"btnColor":"#16BE45",
+          "ctaText":"WhatsApp Us",
+          "cornerRadius":40,
+          "marginBottom":20,
+          "marginRight":20,
+        //   "marginLeft":20,
+          "btnPosition":"right",
+          "whatsAppNumber":"+8801777762200",
+          "welcomeMessage":"Hello",
+          "zIndex":999999,
+          "btnColorScheme":"light"};
+          var wa_widgetSetting = {"title":"Shrom",
+          "subTitle":"Typically replies in a day",
+          "headerBackgroundColor":"#0a5f54",
+          "headerColorScheme":"light",
+          "greetingText":"Hi there! \nHow can I help you?",
+          "ctaText":"Start Chat",
+          "btnColor":"#57c251",
+          "cornerRadius":40,
+          "welcomeMessage":"Hello",
+          "btnColorScheme":"light",
+        //   "brandImage":"https://ucarecdn.com/7c8ee41c-e7bb-4ff9-ae30-db8f4ec0eda6/WhatsAppImage20221111at112629AM.jpeg",
+          "darkHeaderColorScheme":{"title":"#333333","subTitle":"#4F4F4F"}};
+          window.onload = () => {
+            _waEmbed(wa_btnSetting, wa_widgetSetting);
+          };
+        </script>
 </body>
 
 </html>

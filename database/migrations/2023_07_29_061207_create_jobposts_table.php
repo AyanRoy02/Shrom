@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('duration');
             $table->string('qualification');
             $table->string('work_experience');
+            $table->string('total_price');
             $table->foreignId('post_created_by');
             $table->foreign('post_created_by')->on('users')->references('id')->onDelete('cascade');
             $table->timestamps();

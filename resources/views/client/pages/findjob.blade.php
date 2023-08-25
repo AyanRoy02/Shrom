@@ -6,7 +6,7 @@
                 <h2>Post a Job</h2>
                 <ul>
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="">Home</a>
                     </li>
                     <li>Post a Job</li>
                 </ul>
@@ -60,7 +60,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Description</label>
-                            <textarea class="form-control description-area" id="exampleFormControlTextarea1" rows="6" name="description"
+                            <textarea class="form-control description-area" id="editor" rows="6" name="description"
                                 placeholder="Job Description" required></textarea>
                             {{--                            <textarea id="editor" type="text" type="text" class="form-control" id="exampleInput2" placeholder="Description" name="description" --}}
                             {{--                                      required></textarea> --}}
@@ -102,8 +102,8 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Work Experience</label>
-                            <input type="number" class="form-control" id="exampleInput7" name="work_experience"
-                                placeholder="Write The Work Experience">
+                            <textarea  rows="6" class="form-control" id="exampleInput7" name="work_experience"
+                                placeholder="Write The Work Experience"></textarea>
                         </div>
                     </div>
                     <div class="col-md-6">

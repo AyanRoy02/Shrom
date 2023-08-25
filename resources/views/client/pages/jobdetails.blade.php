@@ -16,7 +16,7 @@
                 <h2>Job Details</h2>
                 <ul>
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="">Home</a>
                     </li>
                     <li>Job Details</li>
                 </ul>
@@ -100,7 +100,7 @@
 
                                     <div class="details-text">
                                         <h3>Qualification</h3>
-                                        <p> {{ $jobPost->qualification }}</p>
+                                        <p> {!! $jobPost->qualification !!}</p>
                                     </div>
                                     <div class="details-text">
                                         <h4>Job Experience

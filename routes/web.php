@@ -72,6 +72,12 @@ Route::delete('/delete-users/{id}', [DashboardController::class, 'destroyusers']
 Route::resource('jobpost',JobpostController::class)->middleware('auth') ;
 Route::get('/subscribers', [DashboardController::class, 'subscribers'])->middleware('auth');
 Route::post('/delete-subscribers/{id}', [DashboardController::class, 'destroysubscribers'])->middleware('auth');
+
+//orders
+Route::get('/orders', [DashboardController::class, 'orders'])->middleware('auth') ;
+Route::get('/order-synced/{id}', [DashboardController::class, 'sync']);
+Route::get('/order-update/{id}', [DashboardController::class, 'update']);
+Route::get('/order-remove/{id}', [DashboardController::class, 'cancel']);
 //page create
 Route::get('/create-page', [\App\Http\Controllers\AdminControllers\PageController::class, 'create'])->middleware('auth');
 Route::post('/store-page', [\App\Http\Controllers\AdminControllers\PageController::class, 'store'])->middleware('auth');
@@ -83,9 +89,9 @@ Route::delete('/delete-page/{id}', [\App\Http\Controllers\AdminControllers\PageC
 
 //client routes...
 Route::get('/', [ClientController::class, 'home']);
-Route::get('/client/login', [ClientController::class, 'login'])->name('clogin');
+Route::get('/client/login', [ClientController::class, 'login'])->name('cllogin');
 
-Route::post('/client/logincheck', [ClientController::class, 'logincheck'])->name('clogin');
+Route::post('/client/logincheck', [ClientController::class, 'logincheck']);
 Route::get('/client/signup', [ClientController::class, 'register']);
 Route::post('/client/registration', [ClientController::class, 'registration']);
 Route::get('/client/logout', [ClientController::class, 'logout']);
@@ -95,7 +101,7 @@ Route::get('/job-details/{id}', [\App\Http\Controllers\ClientControllers\JobCont
 
 Route::post('/add_cart/{id}', [\App\Http\Controllers\ClientControllers\CartController::class, 'add_cart']);
 Route::get('/hiring-info', [CartController::class, 'view_cart']);
-
+Route::get('/delete_cart/{id}', [\App\Http\Controllers\ClientControllers\CartController::class, 'delete_cart']);
 //subscribe
 Route::post('/subscribe-us', [ClientController::class, 'subscribe'])->name('subscribe.us');
 

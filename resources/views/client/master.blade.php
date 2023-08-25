@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="{{asset('client/assets/css/responsive.css')}}">
 
     <title>Jovie - Job Board & Portal HTML Template</title>
-
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="{{asset('client/assets/img/favicon.png')}}">
 </head>
 <body>
@@ -70,7 +70,34 @@
 
 <script src="{{asset('client/assets/js/custom.js')}}"></script>
 <script src="{{asset('client/assets/js/master.js')}}"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+      $('#editor').summernote({
+          placeholder: '',
+          tabsize: 2,
+          height: 100
+      });
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+      $('#editor1').summernote({
+          placeholder: '',
+          tabsize: 2,
+          height: 100
+      });
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+      $('#editor2').summernote({
+          placeholder: '',
+          tabsize: 2,
+          height: 100
+      });
+  });
+</script>
 </body>
 
 </html>

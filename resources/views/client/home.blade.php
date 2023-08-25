@@ -5,16 +5,15 @@
             <div class="d-table-cell">
                 <div class="container">
                     @foreach ($slider as $slide)
-
-                    <div class="banner-text">
-                        <span>{{ $slide->title }}</span>
-                        <h1>{{ $slide->sec_title }}</h1>
-                        <p>{!! $slide->description !!}</p>
-                        <div class="theme-btn">
-                            <a href="{{ url('/find-job') }}" class="default-btn active">Need Job</a>
-                            <a href="{{ url('/all-jobs')}}" class="default-btn">Hire Someone</a>
+                        <div class="banner-text">
+                            <span>{{ $slide->title }}</span>
+                            <h1>{{ $slide->sec_title }}</h1>
+                            <p>{!! $slide->description !!}</p>
+                            <div class="theme-btn">
+                                <a href="{{ url('/find-job') }}" class="default-btn active">Need Job</a>
+                                <a href="{{ url('/all-jobs') }}" class="default-btn">Hire Someone</a>
+                            </div>
                         </div>
-                    </div>
                     @endforeach
 
                 </div>
@@ -25,25 +24,17 @@
         <div class="container">
             <div class="section-title text-center">
                 <h2>Popular Jobs Category</h2>
-                {{--  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus</p>  --}}
+    
             </div>
             <div class="row">
-                {{--  @dd($category)  --}}
-                {{--  <?php
-                $cat = DB::table('categories')
-                    ->orderBy('categories.id', 'DESC')
-                    ->limit(8)
-                    ->get();
 
-                ?>  --}}
                 @foreach ($cat as $categories)
                     <div class="col-lg-3 col-sm-6">
                         <a href="{{ url('/jobpostbycat/' . $categories->category) }}">
                             <div class="category-item">
                                 <i class="flaticon-wrench-and-screwdriver-in-cross"></i>
                                 <h3>{{ $categories->category }}</h3>
-                                <p>6 new Job</p>
+                                <p></p>
                             </div>
                         </a>
                     </div>
@@ -59,25 +50,19 @@
                 <div class="col-lg-7">
                     <div class="grow-text">
                         <div class="section-title">
-                            <h2>Grow Your Business Faster With Premium Advertising</h2>
+                            <h2>{{  $setting['title'] }}</h2>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt labore
-                            et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas
-                            accumsan lacus vel facilisis.Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been the industry's standard dummy.
-                        </p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra
-                            maecenas accumsan lacus vel facilisis. Consectetur adipiscing elit.
+                        <p>{{ $setting['description'] }}
                         </p>
                         <div class="theme-btn">
-                            <a href="#" class="default-btn">Checkout More</a>
+                            <a href="{{ url('/login') }}" class="default-btn">Login</a>
+                            <a href="{{ url('/register') }}" class="default-btn">Register</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-5">
                     <div class="grow-img">
-                        <img src="assets/img/grow-img.jpg" alt="grow image">
+                        <img src="{{ asset('client/assets/img/grow-img.jpg') }}" alt="grow image">
                     </div>
                 </div>
             </div>
@@ -85,7 +70,7 @@
     </div>
 
 
-   @include('client.interestjob')
+    @include('client.interestjob')
 
     <div class="counter-section pt-100 pb-70">
         <div class="container">
@@ -94,7 +79,9 @@
                     <div class="counter-text">
                         <i class="flaticon-resume"></i>
                         <?php
-                        $job = DB::table('jobposts')->where('status', 1)->count();
+                        $job = DB::table('jobposts')
+                            ->where('status', 1)
+                            ->count();
                         ?>
                         <h2><span>{{ $job }}</span></h2>
                         <p>Job Posted</p>
@@ -114,7 +101,9 @@
                     <div class="counter-text">
                         <i class="flaticon-employee"></i>
                         <?php
-                        $member = DB::table('users')->where('role', '=', 'client')->count();
+                        $member = DB::table('users')
+                            ->where('role', '=', 'client')
+                            ->count();
                         ?>
                         <h2><span>{{ $member }}</span></h2>
                         <p>Members</p>
@@ -123,5 +112,4 @@
             </div>
         </div>
     </div>
-
 @endsection

@@ -37,38 +37,6 @@ class JobpostController extends Controller
     }
     public function store(Request $request)
     {
-
-        // $jobPost = $this->validate($request, [
-        //         'title' => 'required',
-        //         'category' => 'required',
-        //         'description' => 'required',
-        //         'image' => 'required',
-        //         'url' => 'sometimes',
-        //         'cvimage' => 'sometimes',
-        //         'nidimage' => 'required',
-        //         'price' => 'required',
-        //         'discount_price' => 'sometimes',
-        //     ]);
-        // $uploadPath = 'admin/images/jobpost';
-        // $jobPost['post_created_by']=Auth::user()->id;
-
-        // if ($request->hasFile('image')) {
-        //     $data['image'] = $this->imageUpload($request, 'image', $uploadPath, '', 'jobpost');
-        // }
-
-        // if (JobPost::create($jobPost)) {
-        //     AppFacade::generateActivityLog('jobposts', 'create');
-        //     return redirect()->back()
-        //         ->with('alert', [
-        //             'type' => 'success',
-        //             'message' => 'JobPost Inserted Successful',
-        //         ]);
-        // }
-        // return redirect()->back()
-        //     ->with('alert', [
-        //         'type' => 'error',
-        //         'message' => 'Failed to Insert JobPost',
-        //     ]);
         $post = new JobPost;
         $post->title = $request->title;
         $post->name = $request->name;
@@ -119,46 +87,8 @@ class JobpostController extends Controller
 
     }
 
-
-
-
     public function update(Request $request, $id)
     {
-        // $jobPost = $this->validate($request, [
-        //     'title' => 'sometimes',
-        //     'category' => 'sometimes',
-        //     'description' => 'sometimes',
-        //     'image' => 'sometimes',
-        //     'url' => 'sometimes',
-        //     'price' => 'sometimes',
-        //     'discount_price' => 'sometimes',
-        // ]);
-        // $jobPost['post_created_by']=Auth::user()->id;
-        // $jobPost = JobPost::where('id', $id)->first();
-        // $uploadPath = 'jobpost';
-        // if ($request->hasFile('image')) {
-        //     $imagePath=\Illuminate\Support\Facades\DB::table('images')->where('id', $jobPost->image)->first();
-        //     if (File::exists($imagePath->path)) {
-        //         File::delete($imagePath->path);
-        //     }
-        //     $data['image'] = $this->imageUpdate($request, 'image', $uploadPath, $jobPost->image, '', 'jobpost');
-        // }
-
-        // $jobPost = JobPost::where('id', $id)
-        //     ->update($jobPost);
-        // if ($jobPost) {
-        //     AppFacade::generateActivityLog('jobposts', 'update', $id);
-        //     return redirect()->back()
-        //         ->with('alert', [
-        //             'type' => 'success',
-        //             'message' => 'JobPost Update Successfully',
-        //         ]);
-        // }
-        // return redirect()->back()
-        //     ->with('alert', [
-        //         'type' => 'error',
-        //         'message' => 'Failed to Update JobPost',
-        //     ]);
 
         $post = JobPost::find($id);
         $post->title = $request->title;
@@ -205,6 +135,7 @@ class JobpostController extends Controller
     public function destroy($id)
     {
         $jobPost = JobPost::find($id);
+
         $jobPost->delete();
 
         return redirect()->back();

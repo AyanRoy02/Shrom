@@ -49,9 +49,7 @@
                                 Email:
                             </span>
                             <a
-                                href="#">
-                                <span class="__cf_email__"
-                                    data-cfemail="3e575058517e545148575b105d5153">{{  $setting['email'] }}</span>
+                                href="#">{{  $setting['email'] }}
                             </a>
                         </li>
                         <li>

@@ -7,7 +7,7 @@
             <h2>Job List</h2>
             <ul>
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="{{ url('/') }}">Home</a>
                 </li>
                 <li>Job List</li>
             </ul>
@@ -78,7 +78,7 @@
                         <div class="col-md-3">
                             <div class="theme-btn text-end">
                                 <a href="{{ url('/job-details/' . $job->id) }}" class="default-btn">
-                                    Browse Data
+                                    Browse
                                 </a>
                             </div>
                         </div>
@@ -88,7 +88,7 @@
             @endforeach
         </div>
         <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
+            {{--  <ul class="pagination justify-content-center">
                 <li class="page-item disabled">
                     <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
                         <i class='bx bx-chevrons-left bx-fade-left'></i>
@@ -102,7 +102,7 @@
                         <i class='bx bx-chevrons-right bx-fade-right'></i>
                     </a>
                 </li>
-            </ul>
+            </ul>  --}}
         </nav>
     </div>
 </section>

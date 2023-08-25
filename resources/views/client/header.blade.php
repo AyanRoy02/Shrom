@@ -24,13 +24,13 @@
                     </ul>
                     <div class="other-option">
 
-
+{{--  @dd(Auth::user());  --}}
                         @if (Auth::user())
-                            <a href="{{ url('/hiring-info') }}"><img class="signin-btn"
+                            <a title="Hiring Info" href="{{ url('/hiring-info') }}"><img class="signin-btn"
                                     style="padding: 5px;
                             width: 38px;"
                                     src={{ asset('images/11.png') }} alt="logo"></a>
-                            <a href="{{ url('/profile') }}"><img class="signin-btn"
+                            <a title="profile" href="{{ url('/profile') }}"><img class="signin-btn"
                                     style="padding: 5px;
                         width: 38px;"
                                     src={{ asset('images/4.png') }} alt="logo"></a>

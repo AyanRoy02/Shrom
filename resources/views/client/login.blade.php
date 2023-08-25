@@ -33,39 +33,12 @@
     <link rel="icon" type="image/png" href="assets/img/favicon.png">
 </head>
 <body>
-
-{{-- <div class="loader-content">
-    <div class="d-table">
-    <div class="d-table-cell">
-    <div class="sk-circle">
-    <div class="sk-circle1 sk-child"></div>
-    <div class="sk-circle2 sk-child"></div>
-    <div class="sk-circle3 sk-child"></div>
-    <div class="sk-circle4 sk-child"></div>
-    <div class="sk-circle5 sk-child"></div>
-    <div class="sk-circle6 sk-child"></div>
-    <div class="sk-circle7 sk-child"></div>
-    <div class="sk-circle8 sk-child"></div>
-    <div class="sk-circle9 sk-child"></div>
-    <div class="sk-circle10 sk-child"></div>
-    <div class="sk-circle11 sk-child"></div>
-    <div class="sk-circle12 sk-child"></div>
-    </div>
-    </div>
-    </div>
-</div> --}}
-
-
-
-
-
-
-
-<div class="signin-section ptb-100">
+<div class="signin-section ptb-50">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-8 offset-md-2 offset-lg-3">
                 <form class="signin-form" action="{{url('/client/logincheck')}}" method="post">
+                    <img src="{{ asset('admin/images/lock.jpg') }}" style="height: auto;width:100%;"  alt="logo">
                     @csrf
                     <div class="form-group">
                         <label>Enter Email</label>
@@ -81,7 +54,7 @@
                 </form>
                     <div class="create-btn text-center">
                         <p>Don't have an account?
-                            <a href="signup.html">
+                            <a href="{{ url('/client/signup') }}">
                             signup
                                 <i class='bx bx-chevrons-right bx-fade-right'></i>
                             </a>

@@ -25,6 +25,7 @@ class SslCommerzPaymentController extends Controller
 
     public function index(Request $request)
     {
+
         $client = Auth::user();
         $jobPost = Cart::where('client_id', $client->id)->get();
         $client_id = $client->id;
@@ -40,7 +41,7 @@ class SslCommerzPaymentController extends Controller
         $data['jobPost'] = Cart::where('client_id', $client->id)->get();
         $data['client_id'] = $client->id;
         $data['cus_email'] = $client->email;
-        $data['cus_phone'] = $client->phone ?? '01794188835';
+        $data['cus_phone'] = $client->phone ?? '01777762200';
         $data['shipping_method'] = 'sslcommerz';
         $data['currency'] = "BDT";
         $data['ship_name'] = "Store Test";
@@ -72,86 +73,31 @@ class SslCommerzPaymentController extends Controller
                 'client_id' => $cart->client_id,
                 'job_id' => $cart->job_id,
                 'order_id' => $order->id,
-            ]);
-        }
 
+            ]);
+            // $job = JobPost::updateOrCreate(
+            //     [
+            //         'action' => 'confirmed'
+            //         ]
+            // );
+            // dd($job);
+
+
+
+        $cart_id = $cart->id;
+
+        $cartdlt = Cart::find( $cart_id );
+        $cartdlt->delete();
+    }
+
+// dd($data);
         $sslc = new SslCommerzNotification();
         # initiate(Transaction Data , false: Redirect to SSLCOMMERZ gateway/ true: Show all the Payment gateway here )
         $payment_options = $sslc->makePayment($data, 'checkout', 'hosted');
         if (!is_array($payment_options)) {
             $payment_options = json_decode($payment_options, true);
-
+// dd($payment_options);
             return redirect()->away($payment_options['data']);
-        }
-
-    }
-
-    public function payViaAjax(Request $request)
-    {
-//
-        # Here you have to receive all the order data to initate the payment.
-        # Lets your oder trnsaction informations are saving in a table called "orders"
-        # In orders table order uniq identity is "transaction_id","status" field contain status of the transaction, "amount" is the order amount to be paid and "currency" is for storing Site Currency which will be checked with paid currency.
-
-        $post_data = array();
-        $post_data['total_amount'] = '10'; # You cant not pay less than 10
-        $post_data['currency'] = "BDT";
-        $post_data['tran_id'] = uniqid(); // tran_id must be unique
-
-        # CUSTOMER INFORMATION
-        $post_data['cus_name'] = 'Customer Name';
-        $post_data['cus_email'] = 'customer@mail.com';
-        $post_data['cus_add1'] = 'Customer Address';
-        $post_data['cus_add2'] = "";
-        $post_data['cus_city'] = "";
-        $post_data['cus_state'] = "";
-        $post_data['cus_postcode'] = "";
-        $post_data['cus_country'] = "Bangladesh";
-        $post_data['cus_phone'] = '8801XXXXXXXXX';
-        $post_data['cus_fax'] = "";
-
-        # SHIPMENT INFORMATION
-        $post_data['ship_name'] = "Store Test";
-        $post_data['ship_add1'] = "Dhaka";
-        $post_data['ship_add2'] = "Dhaka";
-        $post_data['ship_city'] = "Dhaka";
-        $post_data['ship_state'] = "Dhaka";
-        $post_data['ship_postcode'] = "1000";
-        $post_data['ship_phone'] = "";
-        $post_data['ship_country'] = "Bangladesh";
-        $post_data['shipping_method'] = "NO";
-        $post_data['product_name'] = "Computer";
-        $post_data['product_category'] = "Goods";
-        $post_data['product_profile'] = "physical-goods";
-
-        # OPTIONAL PARAMETERS
-        $post_data['value_a'] = "ref001";
-        $post_data['value_b'] = "ref002";
-        $post_data['value_c'] = "ref003";
-        $post_data['value_d'] = "ref004";
-
-
-        #Before  going to initiate the payment order status need to update as Pending.
-        $update_product = DB::table('orders')
-            ->where('transaction_id', $post_data['tran_id'])
-            ->updateOrInsert([
-                'name' => $post_data['cus_name'],
-                'email' => $post_data['cus_email'],
-                'phone' => $post_data['cus_phone'],
-                'amount' => $post_data['total_amount'],
-                'status' => 'Pending',
-                'address' => $post_data['cus_add1'],
-                'transaction_id' => $post_data['tran_id'],
-                'currency' => $post_data['currency']
-            ]);
-
-        $sslc = new SslCommerzNotification();
-        # initiate(Transaction Data , false: Redirect to SSLCOMMERZ gateway/ true: Show all the Payement gateway here )
-        $payment_options = $sslc->makePayment($post_data, 'checkout', 'json');
-
-        if (!is_array($payment_options)) {
-            print_r($payment_options);
-            $payment_options = array();
         }
 
     }
@@ -177,7 +123,7 @@ class SslCommerzPaymentController extends Controller
             if ($validation) {
                 $update_product = DB::table('orders')
                     ->where('transaction_id', $tran_id)
-                    ->update(['status' => 'Processing']);
+                    ->update(['status' => 'paid']);
                 return redirect('/');
 
                 echo "<br >Transaction is Successfully Completed";
@@ -210,6 +156,7 @@ class SslCommerzPaymentController extends Controller
             $update_product = DB::table('orders')
                 ->where('transaction_id', $tran_id)
                 ->update(['status' => 'Failed']);
+                return redirect()->back();
             echo "Transaction is Falied";
         } else if ($order_detials->status == 'Processing' || $order_detials->status == 'Complete') {
             echo "Transaction is already Successful";
@@ -231,6 +178,7 @@ class SslCommerzPaymentController extends Controller
             $update_product = DB::table('orders')
                 ->where('transaction_id', $tran_id)
                 ->update(['status' => 'Canceled']);
+                return redirect()->back();
             echo "Transaction is Cancel";
         } else if ($order_detials->status == 'Processing' || $order_detials->status == 'Complete') {
             echo "Transaction is already Successful";

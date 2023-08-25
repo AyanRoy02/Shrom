@@ -49,7 +49,7 @@
                             <div class="col-md-3">
                                 <div class="theme-btn text-end">
                                     <a href="{{ url('/job-details/' . $job->id) }}" class="default-btn">
-                                        Browse Data
+                                        Browse
                                     </a>
                                 </div>
                             </div>

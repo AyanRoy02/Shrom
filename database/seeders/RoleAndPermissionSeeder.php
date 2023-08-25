@@ -36,6 +36,7 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'subscribers']);
         Permission::create(['name' => 'website-setup']);
         Permission::create(['name' => 'slider']);
+        Permission::create(['name' => 'orders']);
 
 
         $workerRole = Role::create(['name' => 'Worker']);
@@ -60,7 +61,8 @@ class RoleAndPermissionSeeder extends Seeder
             'all-pages',
             'website-setup',
             'slider',
-        ]);
+            'orders',
+            ]);
 
         $workerRole->givePermissionTo([
             'create-category',

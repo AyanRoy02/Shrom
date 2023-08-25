@@ -108,6 +108,8 @@ class JobController extends Controller
             }
 
         public function findjob(){
+
+            if(Auth::id()){
                 $category = DB::table('categories')->get();
                 $settings = DB::table('settings')->get() ;
                 $setting = array();
@@ -121,6 +123,10 @@ class JobController extends Controller
                     'setting' => $setting ,
                 ] ;
                 return view('client.pages.findjob', compact('setting', 'category'));
+            }else{
+                 return redirect('/client/login');
+            }
+
             }
 
 
@@ -146,6 +152,13 @@ class JobController extends Controller
                 $post->qualification = $request->qualification;
                 $post->education = $request->education;
                 $post->post_created_by = Auth::user()->id;
+                if(isset($post->discount_price)){
+                    $post->total_price = $request->discount_price;
+
+                }
+                else{
+                    $post->total_price = $request->price;
+                }
 
                 if ($image = $request->file('image')) {
                     $destinationPath = 'images/jobpost/';

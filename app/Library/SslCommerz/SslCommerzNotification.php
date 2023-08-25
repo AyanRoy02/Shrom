@@ -17,6 +17,7 @@ class SslCommerzNotification extends AbstractSslCommerz
      */
     public function __construct()
     {
+
         $this->config = config('sslcommerz');
 
         $this->setStoreId($this->config['apiCredentials']['store_id']);
@@ -186,6 +187,7 @@ class SslCommerzNotification extends AbstractSslCommerz
      * @return false|mixed|string
      */
     public function makePayment(array $requestData, $type = 'checkout', $pattern = 'json')
+
     {
         if (empty($requestData)) {
             return "Please provide a valid information list about transaction with transaction id, amount, success url, fail url, cancel url, store id and pass at least";

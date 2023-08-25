@@ -9,6 +9,7 @@
                     <div class="row">
 
                         <div class="col-lg-4">
+                            <a href="{{ url('/delete_cart/'.$cart->id) }}" style="float: right;" class="btn btn-danger btn-sm">Remove</a>
                             <div class="candidate-profile">
 
                                 <img src="{{ asset('images/jobpost' . '/' . $cart->jobPost->image) }}" alt="candidate image">

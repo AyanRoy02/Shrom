@@ -20,19 +20,6 @@ class ClientController extends Controller
                     ->orderBy('categories.id', 'DESC')
                     ->limit(8)
                     ->get();
-        // $category = DB::table('categories')->count();
-        // $job = DB ::table('jobposts')->where('status', 1)->count();
-        // $member = DB::table('users')->where('role', '=', 'client')->count();
-                    // dd($member);
-        //    dd(Auth::guard('client')->user());
-
-//         if (Auth::user()) {
-//             $client_id = Auth::user()->id;
-// //            $carts = Cart::where('user_id', $user_id )->get();
-//         } else {
-//             $client_id = Auth::user()->id;
-// //            $carts = Cart::where('user_id', $users_id )->get();
-//         }
 
         $jobPosts = DB::table('jobposts')
             ->orderBy('jobposts.id', 'DESC')
@@ -84,36 +71,35 @@ class ClientController extends Controller
         // $client->password = $request->password;
         $client->save();
 
-        return redirect()->back();
+        // return redirect()->url('/');
+        return redirect('/client/login');
 
     }
 
     public function logincheck(Request $request)
     {
-        //    dd(Auth::user('client'));
-        // if(Auth::attempt([
-        //     'email' =>$request->email, 'password' =>$request->password
-        // ])){
-        //     return redirect('/');
-        // }else{
-        //      return redirect('/client/login');
-        // }
-
-//        $email = $request->email;
-//        $result = User::where('email', $email)->first();
         $loginCheck = Auth::attempt([
             'email' => $request->email, 'password' => $request->password
         ]);
+        // if ($loginCheck) {
+        //     if (Auth::user()->role != 'client') {
+        //         Auth::logout();
+        //     }
+        //     if ($loginCheck) {
+        //         return redirect('/');
+        //     }
+        // }
         if ($loginCheck) {
-            if (Auth::user()->role != 'client') {
-                Auth::logout();
-            }
-            if ($loginCheck) {
-                return redirect('/');
-            }
-        }
 
-//        return redirect('/client/login');
+        if(Auth::user()->role != 'client') {
+            // $user = Auth::admin();
+            Auth::logout();
+
+        }
+        return redirect('/');
+    }else{
+        return redirect('/client/login');
+    }
 
 //        if ($result->role == "client") {
 //            if (Auth::guard('client')->attempt([
@@ -132,7 +118,6 @@ class ClientController extends Controller
         return redirect('/');
     }
 
-
     public function subscribe(Request $request){
 
         $this->validate($request,[
@@ -145,13 +130,7 @@ class ClientController extends Controller
     }
 
     public function profile(){
-//         if(Auth::user()){
-//             dd(Auth::user());
-//             // $user_id = Auth::user()->id;
-//             $user_id = Auth::user()->id;
 
-//             $profile = User::get();
-// // dd($profile);
 //         }
 $settings = DB::table('settings')->get() ;
 $setting = array();
@@ -166,6 +145,5 @@ $data = [
 ] ;
         return view('client.pages.profile', compact('setting'));
     }
-
 
 }

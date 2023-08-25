@@ -33,6 +33,7 @@ class CartController extends Controller
 
 }
 
+
     public function view_cart(){
 
         $categories = Category::all();
@@ -49,5 +50,13 @@ class CartController extends Controller
            $setting[$value->name] = $value->value;
        }
         return view('client.pages.viewcart',compact('categories','carts','setting'));
+    }
+
+    public function delete_cart($id){
+        $cart_delete = Cart::find($id);
+        $cart_delete->delete();
+       
+        return redirect()->back();
+
     }
 }

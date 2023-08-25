@@ -24,6 +24,7 @@
                                 <th style="width: 50%;"> Discount Price</th>
                                 <th style="width: 50%;"> Status</th>
                                 <th style="width: 25%;">Action</th>
+                                {{--  <th style="width: 25%;">Order Status</th>  --}}
 
                             </tr>
 
@@ -76,7 +77,7 @@
                                                     class=" btn btn-info btn-sm"> <i class="las la-edit"></i></a>
                                             </div>
                                             <div class="p-2">
-                                                <form action="{{ url('/jobpost/', $post->id) }}" method="post">
+                                                <form action="{{ url('jobpost/' . $post->id) }}" method="post">
                                                     @csrf
                                                     @method('delete')
                                                     <button class=" btn btn-danger btn-sm"> <i class="las la-trash-alt"
@@ -85,6 +86,13 @@
                                             </div>
                                         </div>
                                     </td>
+                                    {{--  <td>
+                                        @if ($post->action == 'confirmed')
+                                        <strong class="btn btn-success">{{ $post->action }}</strong>
+                                        @else
+                                        <strong class="btn btn-danger">Not Confirmed</strong>
+                                        @endif
+                                    </td>  --}}
 
                                 </tr>
                             @endforeach

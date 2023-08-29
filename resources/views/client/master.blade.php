@@ -27,7 +27,7 @@
 
     <link rel="stylesheet" href="{{asset('client/assets/css/responsive.css')}}">
 
-    <title>Jovie - Job Board & Portal HTML Template</title>
+    <title>Shrom</title>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="{{asset('client/assets/img/favicon.png')}}">
 </head>
